@@ -2,4 +2,6 @@
 Claudius lernt richtig programmieren
 
 Kurs: 
-https://www.linkedin.com/learning/grundlagen-der-programmierung-basiswissen
+
+
+https://www.linkedin.com/learning/paths/python-entwickler-in-werden
