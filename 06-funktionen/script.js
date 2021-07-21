@@ -1,12 +1,9 @@
-function meineFunktion () {
-
-		var a = 5;
-		var b = 10;
-		var c = 20;
-		var d = a + b + c;
-
-		alert("Der Wert ist " + d);
-
+//a und b sind parameter
+//die werte beim aufruf nennt man argumente
+function addiere(a,b) {
+				var erg = a + b;
+				return erg;
 		}
 		
-meineFunktion();
+var ergbnis = addiere(5,20);
+alert(ergbnis);
