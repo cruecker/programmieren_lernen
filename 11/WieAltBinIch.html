@@ -1,0 +1,18 @@
+<html>
+<script>
+
+var AktuellesJahr = new Date().getFullYear();
+var Geburtsjahr = prompt("Wie ist Ihr Geburtsjahr?");
+
+if(Geburtsjahr < 1900 || Geburtsjahr > AktuellesJahr || isNaN(Geburtsjahr)) {
+	alert("Wie ist Ihr Geburtsjahr? Format jjjj");
+	location.reload();
+}
+
+else {
+		var Alter = AktuellesJahr - Geburtsjahr;
+		alert("Du bist aktuell " + Alter + " Jahre jung!");
+	}
+
+</script>
+</html>
