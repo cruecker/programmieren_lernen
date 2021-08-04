@@ -1,0 +1,9 @@
+def rechnen(a):
+    pot = 3
+    def innen():
+        text = "Das Ergebnis ist: "
+        print(text, a ** pot)
+    innen()
+rechnen(4)
+rechnen(5)
+rechnen(7)
