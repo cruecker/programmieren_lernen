@@ -5,7 +5,7 @@ class Katze:
     def lautgeben(self):
         print("Miau!")
 
-#constructor erstellen, muss immer gemacht werden
+#Klasse instanzieren, constructor erstellen, muss immer gemacht werden
 obj = Katze()
 print(type(obj))
 
