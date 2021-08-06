@@ -6,7 +6,7 @@ print("Hallo", name)
 groesse=input('Körpergrösse: ')
 
 
-bmis=[]
+datenspeicher={}
 while True:
     gewicht=input('Gewicht: ')
     if not gewicht:
@@ -22,7 +22,13 @@ while True:
         print('Untergewicht')
     else:
         print('Normalgewicht')
+    #prüfen ob der Name vorhanden ist und hinzufügen
+    if name in datenspeicher:
+        bmis=datenspeicher[name]
+    else:
+        bmis=[]
     bmis.append(bmi)
-
-for bmi in bmis:
-    print(bmi)
+    datenspeicher.update({name:bmis})
+#ausgabe des Inhalt des Dicts
+for i in datenspeicher.items():
+    print(i)
