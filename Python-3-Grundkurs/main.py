@@ -1,53 +1,58 @@
-#Main - Das ist ein kleines Beispiel Programm
-#funktion definieren immer mit eigenen Variablen in einern funktion arbeiten
-def rechnen(gr):
-    gewicht=input('Gewicht: ')
-    if not gewicht:
-        return
-    return round(float(gewicht)/(float(gr)**2),2)
+'''Main - Das ist ein kleines Beispiel Programm'''
 
-def auswerten(b):
-    if b>=25:
-        print('Übergewicht')
-    elif b<18.5:
-        print('Untergewicht')
-    else:
-        print('Normalgewicht')
+class Benutzer:
+    def __init__(self):
+        self.name = input("Bitte Ihren Namen eingaben: ")
+        self.groesse=input('Körpergrösse: ')
 
-def hinzufuegen(n,b):
-    #prüfen ob der Name vorhanden ist und hinzufügen
-    if n in datenspeicher:
-        bmis=datenspeicher[n]
-    else:
-        bmis=[]
-    bmis.append(b)
-    datenspeicher.update({n:bmis})
+class Bmirechner:
+    '''funktion definieren immer mit eigenen Variablen in einern funktion arbeiten'''
+    def __init__(self):
+        self.datenspeicher={}
+        
+    def rechnen(self,gr):
+        gewicht=input('Gewicht: ')
+        if not gewicht:
+            return
+        return round(float(gewicht)/(float(gr)**2),2)
 
-def ausgeben():
-    #ausgabe des Inhalt des Dicts
-    for i in datenspeicher.items():
-        print(i)
+    def auswerten(self,b):
+        if b>=25:
+            print('Übergewicht')
+        elif b<18.5:
+            print('Untergewicht')
+        else:
+            print('Normalgewicht')
 
-#Name eingeben
-name = input("Bitte Ihren Namen eingaben: ")
-print("Hallo", name)
+    def hinzufuegen(self,n,b):
+        '''prüfen ob der Name vorhanden ist und hinzufügen'''
+        if n in self.datenspeicher:
+            bmis=self.datenspeicher[n]
+        else:
+            bmis=[]
+        bmis.append(b)
+        self.datenspeicher.update({n:bmis})
 
-#grösse eingeben
-groesse=input('Körpergrösse: ')
+    def ausgeben(self):
+        '''ausgabe des Inhalt des Dicts'''
+        for i in self.datenspeicher.items():
+            print(i)
 
-#dictionary definieren
-datenspeicher={}
+'''dictionary definieren'''
+
+benutzer=Benutzer()
+bmirechner=Bmirechner()
 
 while True:
     try:
-        #Funktion rechnen aufrufen
-        bmi=rechnen(groesse)
+        '''Funktion rechnen aufrufen'''
+        bmi=bmirechner.rechnen(benutzer.groesse)
         if not bmi:
             break
     except ValueError:
         continue
 
-    #Funktion auswerten aufrufen
-    auswerten(bmi)
-    hinzufuegen(name,bmi)
-ausgeben()
+    '''Funktion auswerten aufrufen'''
+    bmirechner.auswerten(bmi)
+    bmirechner.hinzufuegen(benutzer.name,bmi)
+bmirechner.ausgeben()
