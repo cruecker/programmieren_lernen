@@ -1,3 +1,4 @@
+'''Module BMI'''
 '''Main - Das ist ein kleines Beispiel Module für den BMI'''
 
 class Benutzer:
