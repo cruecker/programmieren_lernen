@@ -1,3 +1,5 @@
+import os.path
+from ast import literal_eval
 '''Module BMI'''
 '''Main - Das ist ein kleines Beispiel Module für den BMI'''
 
@@ -10,6 +12,14 @@ class Bmirechner:
     '''funktion definieren immer mit eigenen Variablen in einern funktion arbeiten'''
     def __init__(self):
         self.datenspeicher={}
+        if os.path.exists('bmi.txt'):
+            datei=open('bmi.txt')
+            for zeile in datei:
+                parts=zeile.split(':')
+                name=parts[0]
+                bmis=literal_eval(parts[1])
+                self.datenspeicher.update({name:bmis})
+            datei.close()
         
     def rechnen(self,gr):
         gewicht=input('Gewicht: ')
@@ -33,6 +43,18 @@ class Bmirechner:
             bmis=[]
         bmis.append(b)
         self.datenspeicher.update({n:bmis})
+        datei=open('bmi.txt','w')
+        for name in self.datenspeicher.keys():
+            datei.write(name+":[")
+            bmis=self.datenspeicher[name]
+            first=True
+            for bmi in bmis:
+                if not first:
+                    datei.write(',')
+                datei.write(str(bmi))
+                first=False
+            datei.write(']\n')
+        datei.close()
 
     def ausgeben(self):
         '''ausgabe des Inhalt des Dicts'''
