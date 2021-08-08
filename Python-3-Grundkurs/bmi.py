@@ -1,7 +1,7 @@
-import os.path
-from ast import literal_eval
 '''Module BMI'''
 '''Main - Das ist ein kleines Beispiel Module für den BMI'''
+import sqlite3
+import os.path
 
 class Benutzer:
     def __init__(self):
@@ -12,15 +12,26 @@ class Bmirechner:
     '''funktion definieren immer mit eigenen Variablen in einern funktion arbeiten'''
     def __init__(self):
         self.datenspeicher={}
-        if os.path.exists('bmi.txt'):
-            datei=open('bmi.txt')
-            for zeile in datei:
-                parts=zeile.split(':')
-                name=parts[0]
-                bmis=literal_eval(parts[1])
+        if not os.path.exists('bmi.db'):
+            connection=sqlite3.connect('bmi.db')
+            cursor=connection.cursor()
+            '''real = flaot in SQL'''
+            cursor.execute('''CREATE TABLE bmirechner(name TEXT,bmi REAL)''')
+        else:
+            connection=sqlite3.connect('bmi.db')
+            cursor=connection.cursor()
+            cursor.execute('''SELECT name,bmi FROM bmirechner ''')
+            rows=cursor.fetchall()
+            for row in rows:
+                name=row[0]
+                bmi=row[1]
+                if name in self.datenspeicher:
+                    bmis=self.datenspeicher[name]
+                else:
+                    bmis=[]
+                bmis.append(bmi)
                 self.datenspeicher.update({name:bmis})
-            datei.close()
-        
+            
     def rechnen(self,gr):
         gewicht=input('Gewicht: ')
         if not gewicht:
@@ -43,18 +54,12 @@ class Bmirechner:
             bmis=[]
         bmis.append(b)
         self.datenspeicher.update({n:bmis})
-        datei=open('bmi.txt','w')
-        for name in self.datenspeicher.keys():
-            datei.write(name+":[")
-            bmis=self.datenspeicher[name]
-            first=True
-            for bmi in bmis:
-                if not first:
-                    datei.write(',')
-                datei.write(str(bmi))
-                first=False
-            datei.write(']\n')
-        datei.close()
+        connection=sqlite3.connect('bmi.db')
+        cursor=connection.cursor()
+        '''real = flaot in SQL'''
+        cursor.execute('''INSERT INTO bmirechner VALUES(?,?) ''',(n,b))
+        connection.commit()
+        connection.close()
 
     def ausgeben(self):
         '''ausgabe des Inhalt des Dicts'''
